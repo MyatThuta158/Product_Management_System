@@ -1,0 +1,91 @@
+﻿@model Product_Management.Models.Product
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@{
+    ViewData["Title"] = "Edit New Product";
+    var categories = ViewBag.Categories as SelectList;
+}
+
+<h2>Edit Product</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+else if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<form asp-action="Edit" method="post" enctype="multipart/form-data" >
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="StockID" />
+    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+
+    <div class="form-group mb-3">
+        <label asp-for="StockNo"></label>
+        <input asp-for="StockNo" class="form-control" />
+        <span asp-validation-for="StockNo" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="StockName"></label>
+        <input asp-for="StockName" class="form-control" />
+        <span asp-validation-for="StockName" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-3">
+        <label asp-for="CategoryID"></label>
+        <select asp-for="CategoryID"
+                asp-items="categories"
+                class="form-control">
+            <option value="">-- Select Category --</option>
+        </select>
+        <span asp-validation-for="CategoryID" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Price"></label>
+        <input asp-for="Price" class="form-control" step="0.01" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label>Current Product Image</label><br/>
+
+        @if(Model.ProductImage !=null)
+        {
+            <img src="~/@Model.ProductImage" alt="Product Image" class="img-thumbnail" style="max-height: 150px;" />
+
+        }
+        else
+        {
+            <span class="text-muted">No Image Found</span>
+        }
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="ProductImgFile">Change Image (optional)</label>
+        <input name="ProductImgFile" type="file" class="form-control" accept="image/*" />
+        <span class="form-text text-muted">Leave empty to keep existing image.</span>
+     
+    </div>
+
+    <div class="form-check form-switch mb-4">
+        <input asp-for="Active" class="form-check-input" id="Active" />
+        <label asp-for="Active" class="form-check-label"></label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update Product</button>
+    <a asp-action="Index" class="btn btn-secondary ms-2">Back to List</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
