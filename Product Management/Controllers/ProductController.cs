@@ -224,6 +224,35 @@ namespace Product_Management.Controllers
             return RedirectToAction(nameof(Index));
 
         }
+
+
+        //----This is delete process-----//
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            //----This find the product first------//
+
+            var product = await _context.Products.FindAsync(id);
+
+
+            //-----Delete the product image----//
+            if(!String.IsNullOrEmpty(product.ProductImage))
+            {
+                var oldImgPath = Path.Combine(_env.WebRootPath, product.ProductImage);
+
+                if (System.IO.File.Exists(oldImgPath))
+                {
+                    System.IO.File.Delete(oldImgPath);
+                }
+            }
+
+            //----This delete the product from database-----//
+            _context.Products.Remove(product);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 
 
