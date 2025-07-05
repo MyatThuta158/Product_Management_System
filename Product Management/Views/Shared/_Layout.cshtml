@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="~/Product_Management.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
+    @* <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Product_Management</a>
@@ -29,18 +29,54 @@
                 </div>
             </div>
         </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+
+       
+    </header> *@
+
+
+    <div class="d-md-flex" style="height:100vh;">
+            <nav class="col-md-2  bg-black h-100 bg-light">
+                <h6 class="text-white text-center fs-5 my-3 py-3">Product Management system</h6>
+
+                <hr class="bg-white text-white w-100 my-2"/>
+
+                <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
+                   
+                    @*................... Product nav .............*@
+                    <li class="nav-item">
+                        <a class="nav-link text-center text-white fw-bold" data-bs-toggle="collapse" href="#collapseProduct" role="button" aria-expanded="false" aria-controls="collapseProduct">Product</a>
+                    </li>
+
+                    <span class="collapse mx-2 bg-white" id="collapseProduct">
+                        <a class="dropdown-item text-black" href="/Product/Create">Add Product</a>
+                        <a class="dropdown-item text-black" href="/Product/Index">Product Lists</a>
+                    </span>
+
+                    <hr class="bg-white text-white w-100 my-2" />
+
+                    @*................... Category nav .............*@
+                    <li class="nav-item">
+                        <a class="nav-link text-center text-white fw-bold" data-bs-toggle="collapse" href="#collapseCat" role="button" aria-expanded="false" aria-controls="collapseCat">Category</a>
+                    </li>
+
+                    <span class="collapse mx-2 bg-white" id="collapseCat">
+                        <a class="dropdown-item text-black " href="/Catgegory/Create">Add Category</a>
+                        <a class="dropdown-item text-black " href="/Category/Index">Category Lists</a>
+                    </span>
+
+                    <hr class="bg-white text-white w-100 my-2" />
+                </ul>
+            </nav>
+      
+            <div class="col-md-10">
+                <main role="main" class="pb-3 w-100">
+                    @RenderBody()
+                </main>
+            </div>
+      
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - Product_Management - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+   
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

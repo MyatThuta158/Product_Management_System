@@ -4,7 +4,6 @@ wwwroot\images\2c541b8d-f873-4f93-bb62-1d43276ef7ad.jpg
 wwwroot\images\48de2dcc-7209-431e-b333-574f067848eb.jpg
 wwwroot\images\69d2c048-6cb0-478f-994d-dffbadcc6c41.png
 wwwroot\images\702bd991-c52e-4e55-ad2a-15fea3a8c975.jpg
-wwwroot\images\7ccf3e3a-d4f8-4365-ba45-98b527ef2927.jpg
 wwwroot\images\88858f99-fd22-4443-91ba-787769ed74af.jpg
 wwwroot\images\8965ff16-a31e-4271-a44b-5acca84e67a6.jpg
 wwwroot\images\b52a1b36-e694-41ab-82b9-5e726848ac73.webp

@@ -19,15 +19,30 @@ namespace Product_Management.Controllers
 
 
         // ........... This return all categories ............ //
-        public async Task<IActionResult> Index()
-        {
-            var lists= await _context.Categories.OrderBy(c => c.CategoryName).ToListAsync();
+        // at top of your controller
+        private const int PageSize = 10;  
 
-            ViewBag.Categories = lists;
+        public async Task<IActionResult> Index(int page = 1)
+        {
+            var cats = _context.Categories.OrderBy(c => c.CategoryName).AsQueryable();
+
+            ///-----This getting totalcount for category.........//
+            var totalCount = await cats.CountAsync();
+
+            //-----This fetching only ten items for current page----//
+            var categories = await cats.Skip((page - 1) * PageSize).Take(PageSize).ToListAsync();
+
+
+            //--------Sending categories and pagination items with view bags-----//
+            ViewBag.Categories = categories;
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalCount = totalCount;
+            ViewBag.PageSize = PageSize;
+
             return View();
         }
 
-     
+
 
         //----------This return detail category................//
         public async Task<IActionResult> Details(int? id)
