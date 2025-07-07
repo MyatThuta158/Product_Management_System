@@ -6,7 +6,9 @@
     var categories = ViewBag.Categories as List<Product_Management.Models.Category>;
 }
 
-<h2>Create New Product</h2>
+<div class="d-flex vh-100 justify-content-center align-items-start mt-md-5">
+    <div class="w-75">
+<h2 class="text-center">Create New Product</h2>
 
 @if (TempData["SuccessMessage"] != null)
 {
@@ -69,6 +71,8 @@ else if (TempData["ErrorMessage"] != null)
     <button type="submit" class="btn btn-primary">Save Product</button>
     <a asp-action="Index" class="btn btn-secondary ms-2">Back to List</a>
 </form>
+</div>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

@@ -2,8 +2,8 @@
 @using X.PagedList.Mvc.Core  
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers  
 
-<div class="container py-4">  
-    <h2 class="mb-4">Product Catalog</h2>  
+<div class="container py-4 vh-100 overflow-auto">  
+    <h2 class="mb-4 text-center">Product Catalog</h2>  
 
     <!-- Search & Filter Form -->  
     <form method="get" class="row g-2 align-items-end mb-4">  
@@ -58,12 +58,12 @@
                            <div class="d-flex">
                                 <a asp-action="Edit"  
                                asp-route-id="@p.StockID"  
-                               class="btn btn-sm btn-outline-primary text-white btn-primary mt-auto">  
+                               class="btn btn-sm btn-outline-primary  me-2 text-primary mt-auto">  
                                 Edit  
                             </a>  
 
                             <button type="button"
-                            class="btn btn-sm btn-outline-danger text-white btn-danger"
+                            class="btn btn-sm btn-outline-danger text-danger "
                             data-bs-toggle="modal"
                             data-bs-target="#confirmDeleteModalProduct"
                             data-id="@p.StockID"

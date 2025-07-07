@@ -6,7 +6,9 @@
     var categories = ViewBag.Categories as SelectList;
 }
 
-<h2>Edit Product</h2>
+<div class="d-flex vh-100 justify-content-center align-items-start  overflow-auto">
+    <div class="w-75 ">
+<h2 class="text-center">Edit Product</h2>
 
 @if (TempData["SuccessMessage"] != null)
 {
@@ -85,6 +87,8 @@ else if (TempData["ErrorMessage"] != null)
     <button type="submit" class="btn btn-primary">Update Product</button>
     <a asp-action="Index" class="btn btn-secondary ms-2">Back to List</a>
 </form>
+</div>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
