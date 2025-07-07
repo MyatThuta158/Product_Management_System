@@ -15,7 +15,7 @@
 
 
 <div class="w-75 mx-auto">
-    <a asp-action="Create" class="btn btn-success mb-3 ">+ New Category</a>
+    <a asp-action="Create" class="btn btn-primary mb-3 ">+ New Category</a>
 </div>
 
 
@@ -81,7 +81,7 @@
                asp-action="Index"
                asp-route-page="@(current - 1)"
                tabindex="-1">
-                Previous
+               <
             </a>
         </li>
 
@@ -100,7 +100,7 @@
             <a class="page-link"
                asp-action="Index"
                asp-route-page="@(current + 1)">
-                Next
+               >
             </a>
         </li>
     </ul>

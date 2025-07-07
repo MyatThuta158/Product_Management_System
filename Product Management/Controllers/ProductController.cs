@@ -29,11 +29,21 @@ namespace Product_Management.Controllers
 
             //......This fetch for products including categories------//
             var product = _context.Products.Include(p => p.Category).AsQueryable();
-
+          
+           
             //.......Check if the search term and filter include in request list.......//
             if (!String.IsNullOrWhiteSpace(SearchProduct))
             {
-                product = product.Where(p => p.StockName.Contains(SearchProduct)).OrderBy(p=>p.CreatedDate);
+               var sProduct = product.Where(p => p.StockName.Contains(SearchProduct)).OrderBy(p=>p.CreatedDate);
+
+                if (!await sProduct.AnyAsync())
+                {
+                    product = product.Where(p => p.Category.CategoryName.Contains(SearchProduct)).OrderBy(p => p.CreatedDate); //search the product with category name
+                }
+                else
+                {
+                    product = sProduct; //---search the product with product name
+                }
             }
 
             if (CategoryID.HasValue)
@@ -44,6 +54,7 @@ namespace Product_Management.Controllers
             //....This return as page list------//
             var pageList = product.ToPagedList(page,pageSize);
 
+            ViewBag.SearchProduct = SearchProduct;
             return View(pageList);
         }
 

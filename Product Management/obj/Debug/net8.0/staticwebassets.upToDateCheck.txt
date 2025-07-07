@@ -10,8 +10,6 @@ wwwroot\images\b52a1b36-e694-41ab-82b9-5e726848ac73.webp
 wwwroot\images\ba301ecc-7396-4438-93dd-a10118748c65.jpg
 wwwroot\images\c2e5becf-ee3f-46d0-914e-522bfbe39837.jpg
 wwwroot\images\c53bfd73-2588-4def-9b66-8bdb3a3bf84c.jpg
-wwwroot\images\c888bc06-6216-4f49-b29d-8afe4b97db30.jpg
-wwwroot\images\d3032ba7-8406-4d6d-b15e-00daf26ea7a6.jpg
 wwwroot\images\f797cec7-6b8f-40df-bea4-7f15fba5049e.jpg
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
