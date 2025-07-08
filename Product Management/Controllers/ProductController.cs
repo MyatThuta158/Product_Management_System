@@ -20,7 +20,7 @@ namespace Product_Management.Controllers
         }
 
        //-----------This is to show product list------------//
-       public async Task<IActionResult> Index(string SearchProduct,int? CategoryID,int page = 1)
+       public async Task<IActionResult> Index(string SearchProduct,int? CategoryID,string sortingProduct,int page = 1)
         {
             int pageSize = 6;
 
@@ -46,6 +46,33 @@ namespace Product_Management.Controllers
                 }
             }
 
+
+            //------This is the sorting process------//
+            if (!String.IsNullOrWhiteSpace(sortingProduct))
+            {
+                switch (sortingProduct)
+                {
+                    case "nameAsc":
+                        product = product.OrderBy(p => p.StockName); break;
+                     
+                    case "nameDesc":
+                        product = product.OrderByDescending(p => p.StockName);break;
+
+                    case "priceAsc":
+                        product = product.OrderBy(p => p.Price);
+                        break;
+
+                    case "priceDesc":
+                        product = product.OrderByDescending(p => p.Price);
+                        break;
+
+                    default:
+                        product = product.OrderBy(p => p.StockName);break;
+
+                }
+            }
+
+            //-------this filter by category-----//
             if (CategoryID.HasValue)
             {
                 product = product.Where(p => p.CategoryID ==CategoryID.Value);
@@ -54,6 +81,7 @@ namespace Product_Management.Controllers
             //....This return as page list------//
             var pageList = product.ToPagedList(page,pageSize);
 
+            ViewBag.sortProduct = sortingProduct ;
             ViewBag.SearchProduct = SearchProduct;
             return View(pageList);
         }

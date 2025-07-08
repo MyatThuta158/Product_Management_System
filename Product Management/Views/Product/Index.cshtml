@@ -1,13 +1,17 @@
 ﻿@model X.PagedList.IPagedList<Product_Management.Models.Product>  
 @using X.PagedList.Mvc.Core  
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers  
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
+@{
+    ViewBag.Title = "Product Catalog";
+
+}
 <div class="container vh-100 py-4 overflow-auto">  
     <h2 class="mb-4 text-center">Product Catalog</h2>  
 
  <div class="row mb-4">
   <!-- Search bar -->
- <div class="col-12 col-md-6">
+ <div class="col-12 col-md-4">
   <form method="get" role="search">
     <div class="mb-2">
       <label for="searchString" class="form-label d-block">Search</label>
@@ -43,6 +47,35 @@
 </div>
 
 
+<form method="get" class="col-md-2 col-12">
+     <label for="sortingProduct" class="form-label">Sorting</label>
+    <select name="sortingProduct" id="sortingProduct" onchange="this.form.submit()" class="form-select col-md-4 mb-3">
+
+   <option 
+    value="nameAsc"
+    selected="@(ViewBag.sortProduct == "nameAsc")">
+    A‑Z
+  </option>
+
+  <option 
+    value="nameDesc" selected="@(ViewBag.sortProduct == "nameDesc")">
+    Z‑A
+  </option>
+
+  <option 
+    value="priceAsc" selected="@(ViewBag.sortProduct == "priceAsc")">
+   Price Low
+  </option>
+
+  <option 
+    value="priceDesc" selected="@(ViewBag.sortProduct == "priceDesc")">
+    Price High
+  </option>
+
+</select>
+</form>
+
+
   <!-- Filter form -->
   <div class="col-12 col-md-6">
     <form method="get" class="row gx-2 gy-1 align-items-end">
@@ -68,12 +101,17 @@
           asp-action="Index"
           class="btn btn-outline-secondary flex-fill"
         >
-          Clear All
+          Reset
         </a>
       </div>
     </form>
   </div>
 </div>
+
+
+
+
+
 
   
 
