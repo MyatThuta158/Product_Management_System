@@ -27,9 +27,9 @@ namespace Product_Management.Models
  
         public IFormFile ProductImgFile { get; set; }
 
-     
 
-        [Range(0, double.MaxValue)]
+        [Required]
+        [Range(0.01, double.MaxValue, ErrorMessage = "Price must be greater than zero.")]
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
 

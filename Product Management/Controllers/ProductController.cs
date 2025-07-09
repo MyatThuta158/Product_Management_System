@@ -24,7 +24,7 @@ namespace Product_Management.Controllers
         {
             int pageSize = 6;
 
-            var cats = await _context.Categories.Where(c => c.Active).OrderBy(c => c.CategoryName).ToListAsync(); //getting active all categories 
+            var cats = await _context.Categories.Where(c => c.Active).OrderBy(c => c.CategoryName).ToListAsync(); 
             ViewBag.Categories = new SelectList(cats, "CategoryID", "CategoryName", CategoryID);
 
             //......This fetch for products including categories------//
@@ -149,20 +149,10 @@ namespace Product_Management.Controllers
             await _context.SaveChangesAsync();
 
             TempData["SuccessMessage"] = "Product created successfully!";
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Create));
         }
 
 
-        private void DumpModelErrors()
-        {
-            foreach (var kv in ModelState)
-            {
-                foreach (var error in kv.Value.Errors)
-                {
-                    Console.WriteLine($"{kv.Key}: {error.ErrorMessage}");
-                }
-            }
-        }
 
 
         //.......This is to show product detail for edit....//
@@ -174,7 +164,7 @@ namespace Product_Management.Controllers
 
             if (product == null)
             {
-                return NotFound(); //return if not found 
+                return NotFound(); 
             }
 
             var categories = await _context.Categories
@@ -199,12 +189,12 @@ namespace Product_Management.Controllers
                 return NotFound();
             }
 
-            //----fetch the database product data.../
+            //----this fetch the database product data.../
             var product = await _context.Products.FindAsync(id);
 
             if(null == product)
             {
-                return NotFound(); //return if not found 
+                return NotFound(); 
             }
 
             if(model.ProductImgFile !=null && model.ProductImgFile.Length > 0)

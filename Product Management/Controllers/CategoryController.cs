@@ -19,7 +19,6 @@ namespace Product_Management.Controllers
 
 
         // ........... This return all categories ............ //
-        // at top of your controller
         private const int PageSize = 10;  
 
         public async Task<IActionResult> Index(int page = 1)
