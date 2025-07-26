@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Product_Management.Data;
+using Product_Management.Models;
 
 namespace Product_Management
 {
@@ -17,7 +19,11 @@ namespace Product_Management
                 options.UseMySql(connStr, serverVersion)
             );
 
+
+            builder.Services.AddIdentity<BaseUserClass, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
             builder.Services.AddControllersWithViews();
+            builder.Services.AddRazorPages();
 
             var app = builder.Build();
 
@@ -31,6 +37,9 @@ namespace Product_Management
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
+
+            //This is middleware authentication and authorization routes
+            app.UseAuthentication();
             app.UseAuthorization();
 
       
