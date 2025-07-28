@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Product_Management.Data;
@@ -19,7 +20,8 @@ namespace Product_Management.Controllers
             _env = env;
         }
 
-       //-----------This is to show product list------------//
+        //-----------This is to show product list------------//
+        [Authorize(policy:"RequiredAdmin")]
        public async Task<IActionResult> Index(string SearchProduct,int? CategoryID,string sortingProduct,int page = 1)
         {
             int pageSize = 6;
@@ -88,6 +90,7 @@ namespace Product_Management.Controllers
 
         ///......This show for product add form..........//
         [HttpGet]
+        [Authorize(policy:"RequiredAdmin")]
         public async Task<IActionResult> Create()
         {
             var cats = _context.Categories

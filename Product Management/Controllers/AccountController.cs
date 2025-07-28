@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Product_Management.Models;
 using Product_Management.Models.ViewModel;
@@ -73,10 +74,12 @@ namespace Product_Management.Controllers
         }
 
 
+        [Authorize(policy:"RequiredAdmin")]
         public IActionResult AdminRegister() => View();
 
 
         [HttpPost]
+        [Authorize(policy: "RequiredAdmin")]
         public async Task<IActionResult> AdminRegister(AdminViewModel admin)
         {
             if (!ModelState.IsValid)
@@ -116,6 +119,34 @@ namespace Product_Management.Controllers
 
             ModelState.Clear();
             return RedirectToAction("Index","Product");
+        }
+
+        public IActionResult Login() => View();
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel account)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(account);
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(
+                userName: account.Email,
+                password: account.Password,
+                isPersistent: account.RememberMe,
+                lockoutOnFailure: true
+                );
+
+            if (result.Succeeded)
+            {
+                if (!string.IsNullOrEmpty(account.ReturnUrl) && Url.IsLocalUrl(account.ReturnUrl))
+                    return Redirect(account.ReturnUrl);
+
+                return RedirectToAction("Product", "Home");
+            }
+            return View();
+
         }
     }
 }

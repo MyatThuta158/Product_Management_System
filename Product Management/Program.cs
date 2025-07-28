@@ -22,6 +22,15 @@ namespace Product_Management
 
             builder.Services.AddIdentity<BaseUserClass, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RequiredAdmin", policy => policy.RequireRole("Admin"));
+
+                options.AddPolicy("RequiredCustomer", policy => policy.RequireRole("Customer"));
+
+                options.AddPolicy("RequiredBoth", policy => policy.RequireRole("Customer", "Admin"));
+            });
+
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
 
