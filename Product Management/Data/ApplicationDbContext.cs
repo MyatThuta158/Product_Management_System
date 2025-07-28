@@ -29,8 +29,7 @@ namespace Product_Management.Data
             modelBuilder.Entity<Customer>()
                    .ToTable("Customers");
 
-            modelBuilder.Entity<BaseUserClass>().Ignore(u => u.NormalizedUserName);
-            modelBuilder.Entity<BaseUserClass>().Ignore(u => u.UserName);
+           
             modelBuilder.Entity<Category>()
                 .Property(c => c.CreatedDate)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
