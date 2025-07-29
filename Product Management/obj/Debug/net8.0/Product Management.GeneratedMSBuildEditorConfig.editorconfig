@@ -24,6 +24,10 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxBZG1pblJlZ2lzdGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/My_Projects/Product Management System/Product Management/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/My_Projects/Product Management System/Product Management/Views/Account/UserRegister.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxVc2VyUmVnaXN0ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

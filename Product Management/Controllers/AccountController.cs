@@ -38,7 +38,7 @@ namespace Product_Management.Controllers
 
             var cus = new Customer
             {
-                UserName = customer.FirstName + ""+ customer.LastName,
+                UserName = customer.Email,
                 FirstName = customer.FirstName,
                 LastName = customer.LastName,
                 Email = customer.Email,
@@ -90,7 +90,7 @@ namespace Product_Management.Controllers
 
             var adm = new Admin
             {
-                UserName = admin.FirstName + "" + admin.LastName,
+                UserName = admin.Email,
                 FirstName = admin.FirstName,
                 LastName = admin.LastName,
                 Email = admin.Email,
@@ -121,11 +121,35 @@ namespace Product_Management.Controllers
             return RedirectToAction("Index","Product");
         }
 
-        public IActionResult Login() => View();
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Login(string returnUrl = null)
+        {
+
+            if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("Admin"))
+                {
+                    return RedirectToAction("Index", "Product");
+                }else if (User.IsInRole("Customer"))
+                {
+                    return RedirectToAction("UserRegister", "Account");
+                }
+            }
+
+            var vm = new LoginViewModel
+            {
+                ReturnUrl = returnUrl
+            };
+            return View(vm);
+        }
+
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel account)
         {
+            ModelState.Remove(nameof(account.ReturnUrl));
             if (!ModelState.IsValid)
             {
                 return View(account);
@@ -140,12 +164,31 @@ namespace Product_Management.Controllers
 
             if (result.Succeeded)
             {
-                if (!string.IsNullOrEmpty(account.ReturnUrl) && Url.IsLocalUrl(account.ReturnUrl))
-                    return Redirect(account.ReturnUrl);
+                //----This get the user obj---//
+                var user=await _userManager.FindByEmailAsync(account.Email);
 
-                return RedirectToAction("Product", "Home");
+                if (await _userManager.IsInRoleAsync(user,"Admin"))
+                {
+                    return RedirectToAction("Index", "Product");
+                }else if(await _userManager.IsInRoleAsync(user, "Customer"))
+                {
+                    return RedirectToAction("UserRegister", "Account");
+                }
+
+                if (!string.IsNullOrEmpty(account.ReturnUrl) && Url.IsLocalUrl(account.ReturnUrl))
+                {
+                    return Redirect(account.ReturnUrl);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Product");
+                }
             }
-            return View();
+            if (result.IsLockedOut)
+                return View("Lockout");
+
+            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+            return View(account);
 
         }
     }

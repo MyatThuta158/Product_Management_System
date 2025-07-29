@@ -1,0 +1,67 @@
+﻿@model Product_Management.Models.ViewModel.LoginViewModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-white">
+                    <h4 class="mb-0">Sign In</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Login" method="post" novalidate>
+                        @Html.AntiForgeryToken()
+
+                        @* Carry ReturnUrl through the form *@
+                        @if (!string.IsNullOrEmpty(Model.ReturnUrl))
+                        {
+                            <input type="hidden" asp-for="ReturnUrl" />
+                        }
+
+
+                        @* Summary of all errors *@
+                        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                        <div class="form-group">
+                            <label asp-for="Email"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Password"></label>
+                            <input asp-for="Password" type="password" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group form-check">
+                            <input asp-for="RememberMe" class="form-check-input" />
+                            <label asp-for="RememberMe" class="form-check-label"></label>
+                        </div>
+
+                        <button type="submit" class="btn btn-info btn-block">
+                            <i class="fas fa-sign-in-alt mr-1"></i> Log in
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="text-center mt-3">
+                <p>
+                    Don't have an account?
+                    <a asp-action="UserRegister" asp-controller="Account">Register as Customer</a>
+                </p>
+                @* If you also allow admin self‑registration (or link), add it here *@
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
